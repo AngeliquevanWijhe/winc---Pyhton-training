@@ -4,4 +4,3 @@ height = 5.9 # Float
 name = "Angelique" # String
 print(age, height, name)
 
-import wincpy
