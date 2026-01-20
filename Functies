@@ -1,0 +1,57 @@
+def double(x):
+  doubled_x = x * 2
+  return doubled_x
+
+four_doubled = double(4)
+print(four_doubled)
+
+five_doubled = double(5)
+print(five_doubled)
+
+decimal_doubled = double(1.2)
+print(decimal_doubled)
+
+string_doubled = double('Hey! ')
+print(string_doubled)
+
+def initials(name):
+  first = name[0].upper()
+  last = name[name.find(' ')+1].upper()
+  return f'{first}. {last}.'
+
+example_initials = initials('Ex Ample')
+print(example_initials)
+
+bobcat_initials = initials('Bob Cat')
+print(bobcat_initials)
+
+nice_initials = initials('Function Nice')
+print(nice_initials)
+
+def multiply(a, b):
+  return a * b
+  
+two_and_two = multiply(2, 2)
+print(two_and_two)
+
+integer_and_decimal = multiply(9, 2.3)
+print(integer_and_decimal)
+
+integer_and_string = multiply(29, 'Hey! ')
+print(integer_and_string)
+
+def func_with_multiple_args(arg_0, arg_1):
+    print('I received the arguments:', arg_0, arg_1)
+
+func_with_multiple_args('bad', 'ugly')
+func_with_multiple_args(0, 1)
+func_with_multiple_args('good', 'bad')#, 'ugly')
+
+# Function that greets a user with a name and age
+def greet_user(name, age):
+    print(f"Hi {name}! You are {age} years old.")
+
+# Use the function with positional arguments
+greet_user(35, "John") # Incorrect order
+greet_user("John", 35) # Correct order  
+

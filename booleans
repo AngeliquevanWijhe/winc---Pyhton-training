@@ -1,0 +1,105 @@
+print(bool("")) # False
+print(bool("hi mom")) # True
+string_a = ''
+string_b = 'foo'
+print(bool(string_a)) #False
+print(bool(string_b)) #True
+# Nothing is printed because an empty string is converted to False
+if string_a:
+    print("expression results in a truthy value")
+
+# The print line is executed because a non-empty string is converted to True
+if string_b:
+    print("expression results in a truthy value")
+
+# This is another example
+# We are using a comparison
+# The print line is not executed because it's False
+if len(string_a) > 0: 
+    print('string_a != ""')
+
+# This is more clear
+# The print line is executed
+if string_b != string_a:
+    print('string_b is not string_a')
+
+#les operators
+    print(2 == 3) # 2 is gelijk aan 3?
+    print(2 != 3) # 2 is niet gelijk aan 3?
+    print(2 < 3)  # 2 is kleiner dan 3?
+    print(2 > 3)  # 2 is groter dan 3?
+    print(2 <= 3) # 2 is kleiner dan of gelijk aan 3?
+    print(2 >= 3) # 2 is groter dan of gelijk aan 3?
+
+# les and en or
+print(17 < 50 and 10 == 10)
+print(1 != 1 and 10 >= 9)
+
+#we create a couple of variables for the next examples
+is_winning = True
+four_letters = 'ABCD'
+
+print(len(four_letters) == 4 or 1 > 5)
+print(len(four_letters) == 4 and is_winning)
+print(not is_winning)
+
+#les vergelijkingen
+# Define a string variable
+s = "Hello"
+s2 = "Hello"
+
+# Define an integer variable
+i = 5
+i2 = 5
+
+# Define a float variable
+f = 5.0
+f2 = 5.0
+
+# Define a boolean variable
+b = True
+b2 = True
+
+# Define a list variable
+l = [1, 2, 3]
+l2 = [1, 2, 3]
+
+# Define a tuple variable
+t = (1, 2, 3)
+t2 = (1, 2, 3)
+
+# Define a dictionary variable
+d = {"a": 1, "b": 2, "c": 3}
+d2 = {"a": 1, "b": 2, "c": 3}
+
+# Define a set variable
+se = {1, 2, 3}
+se2 = {1, 2, 3}
+
+# Compare the identical variables
+print(s is s2)  # True
+print(i is i2)  # True
+print(f is f2)  # True
+print(b is b2)  # True
+print(l is l2)  # False
+print(t is t2)  # True
+print(d is d2)  # False
+print(se is se2)  # False
+
+# Empty line
+print()
+
+# Compare the identical variables with equality
+print(s == s2)  # True
+print(i == i2)  # True
+print(f == f2)  # True
+print(b == b2)  # True
+print(l == l2)  # True
+print(t == t2)  # True
+print(d == d2)  # True
+print(se == se2)  # True
+
+#opdracht vergelijkingen
+spain_total_area = 505307
+switzerland_total_area = 41277
+print(spain_total_area > switzerland_total_area)
