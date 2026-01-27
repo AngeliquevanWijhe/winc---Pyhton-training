@@ -273,3 +273,108 @@ students = [
 print(students[1]["skills"]["Python"])  # "advanced beginner"
 print(students[0]["certificates"][1]["name"])  # "Back-end Development"
 print(students[1]["name"] + " " + students[1]["family_name"])  # "Jessica van Alphen"
+
+#dit is de les over loops
+names = ['Bob','Shaun','Preeti','Jeff']
+for name in names:
+    print(f'Hello, {name}!') #alle namen onder elkaar
+
+question = 'How many roads must one walk down?'
+for c in question:
+    print(c) #hier wordt ieder character weergegeven
+
+for i in range(1900,1000,-50):
+  print(i) # hier wordt geteld van boven naar beneden
+
+for i in range(20):
+  print(i) # hier wordt geteld van 0-20
+
+
+print('We have a long road ahead.')
+for i in range(100):
+    print(i)
+    if i == 15:
+        break
+    print('Almost there...')
+print("That wasn't so bad after all.")
+
+print('We have a long road ahead.')
+for i in range(10):
+  if i % 2 == 0:
+    print(i)
+    continue
+  print('Almost there...')
+print("That wasn't that bad either.")
+
+for x in range(0, 3):
+    print("We're on time %d" % (x))
+
+example_names = ["Anna Ansvlle", "Bob Bobsville","Carla Carlsville"]
+example_last_name = [n.split(" ")[-1] for n in example_names]
+example_first_name = [n.split(" ")[-2] for n in example_names]
+print (example_last_name)
+print (example_first_name)
+for name in example_first_name:
+    print(f"Hello, {name}!")
+
+# Example: Count vowels in a string
+def count_vowels(string):
+   vowels = "aeiouAEIOU"
+   count = 0
+   for char in string:
+       if char in vowels:
+           count += 1
+   return count
+# Input and Output
+input_string = "Hello World"
+print("Number of vowels:", count_vowels("Nederland"))
+
+letters_alfabet=list('abcdefghijklmnopqrstuvwxyz ')
+string_to_check=("the quick brown fox jumps over the lazy dog")
+print(list(string_to_check.lower()) in letters_alfabet)
+#print(list(string_to_check)
+            
+
+  
+print(letters_alfabet)
+print(len(letters_alfabet))
+
+
+
+word_list = ["apple", "application", "palace", "grape", "clamp", "alphabet"]
+letters_needed = ['a', 'p', 'l', 'g']
+
+result =(word_list, letters_needed)
+print("Words containing all letters", letters_needed, ":", result)
+
+#while True:
+  #print('Woop woop, an infinite loop.')
+
+i = 10
+while i > 0:
+  print(i)
+  i -= 1
+
+
+
+import random
+
+# Define the list of words to choose from
+word_list = ["apple", "banana", "cherry"]
+
+# Choose a random word from the list
+word = random.choice(word_list)
+
+# Create a meaningful prompt from the list of words
+prompt = "Guess the word: " + ", ".join(word_list) + "?\n"
+
+# Prompt the user to guess the word
+guess = input(prompt)
+
+# Keep prompting until the user guesses correctly
+while guess != word:
+  print("Incorrect, try again.")
+  guess = input(prompt)
+
+print("Correct!")
+cherry
