@@ -16,9 +16,9 @@ class Player():
     
      #Method
     def introduce(self):
-        print(f"Hello everyone, my name is {self.name}")
+        return(f"Hello everyone, my name is {self.name}.")
 
-    def top_stat(self):
+    def strength(self):
         best = (None, 0)
         for attr in ["speed", "endurance", "accuracy"]:
             value = getattr(self, attr)
@@ -26,43 +26,58 @@ class Player():
                 best = (attr, value)
         return best
     
-    def sum_player(self):
-        total = 0
-        for attr in ["speed", "endurance", "accuracy"]:
-            value = getattr(self, attr)
-            total += value
-        total = round(total,2)
-        print(f"Opgeteld: {self.name} {total:.2f}")
-        return total
-    
-    def compare_players(self, other, attr):
-        for attr in ["speed", "endurance", "accuracy"]:
-
-            self_value = getattr(self, attr)
-            other_value = getattr(other, attr)
-
-            if self_value > other_value:
-                return self.name
-            elif other_value > self_value:
-                return other.name
-            else:
-                return "Tie"
-      
-
-
-    
 class Commentator():
     #Initializer
     def __init__(self, name):
         self.name = name
 
-Bob = Player('Bob', 0.4, 0.2, 0.6)
-Alice = Player('Alice', 0.8, 0.2, 0.6)
-print(Bob.top_stat())
-Bob.introduce()
-Bob.sum_player()
+    def sum_player(self, player):
+        total = 0
+        for attr in ["speed", "endurance", "accuracy"]:
+            value = getattr(player, attr)
+            total += value
+        total = round(total,2)
+        print(f"Opgeteld: {player.name} {total:.2f}")
+        return total
+    
+    def compare_players(self,player, other, attr):
+        player_value = getattr(player, attr)
+        other_value = getattr(other, attr)
+        best = player.strength()
+        totalP = self.sum_player(player)
+        totalO = self.sum_player(other)
+
+
+        if player_value > other_value:
+            return player.name
+        elif other_value > player_value:
+            return other.name
+        else:
+            if best[1]>other.strength()[1]:
+                return player.name
+            elif other.strength()[1]>best[1]:
+                return other.name
+            else:
+                if totalP>totalO:
+                    return player.name
+                elif totalO>totalP:
+                    return other.name
+                else:
+                    return("These two players might as well be twins!")
+
+      
+
+
+    
+
+
+bob = Player('Bob', 0.9, 0.2, 0.4)
+alice = Player('Alice', 0.8, 0.2, 0.6)
+print(bob.strength())
+print(bob.introduce())
 Ray = Commentator("Ray Hudson")
+Ray.sum_player(bob)
 print (Ray.name)
-print(Bob.compare_players(Alice, 'speed'))
-print(Bob.compare_players(Alice, 'endurance'))
-print(Alice.compare_players(Bob, 'accuracy'))
+print(Ray.compare_players(bob, alice, 'speed'))
+print(Ray.compare_players(bob, alice, 'endurance'))
+print(Ray.compare_players(bob, alice, 'accuracy'))
