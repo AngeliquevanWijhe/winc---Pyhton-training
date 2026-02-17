@@ -13,33 +13,44 @@ class PizzaOrder:
         toppings_str = ", ".join(self.toppings) if self.toppings else "None"
         return f"{self.customer_name} | {self.pizza_type} | {toppings_str} | {self.order_time.strftime('%Y-%m-%d %H:%M:%S')} | Delivered: {self.is_delivered}"
 
-    @classmethod
-    def create_order(cls):
-        customer_name = input("What is your name?")
-        pizza_type=input("Which pizza would you like?")
-        toppings=input("Please select toppings (comma-seperated)").split(",")
-                
-        print("\n--- Order Summary ---")
-        print(f"Customer: {customer_name}")
-        print(f"Pizza: {pizza_type}")
-        print(f"Toppings: {toppings}")
-        return cls(customer_name, pizza_type, toppings)
 
-    @staticmethod
-    def save_orders_to_file(order_list, filename="orders.txt"):
-        if not isinstance(order_list, list):
-            raise ValueError("order_list must be a list of PizzaOrder objects.")
+def save_orders_to_file(order_list, filename="orders.txt"):
+    # if not isinstance(order_list, list):
+    #     raise ValueError("order_list must be a list of PizzaOrder objects.")
 
-        try:
-            with open(filename, "a", encoding="utf-8") as file:
-                for order in order_list:
-                    if isinstance(order, PizzaOrder):
-                        file.write(str(order) + "\n")
-                    else:
-                        raise ValueError("All items in order_list must be PizzaOrder instances.")
-            print(f"Orders saved successfully to {filename}")
-        except Exception as e:
-            print(f"Error saving orders: {e}")
+    # try:
+    #     with open(filename, "w", encoding="utf-8") as file:
+    #         for order in order_list:
+    #             if isinstance(order, PizzaOrder):
+    #                 file.write(str(order) + "\n")
+    #             else:
+    #                 raise ValueError("All items in order_list must be PizzaOrder instances.")
+    #     print(f"Orders saved successfully to {filename}")
+    # except Exception as e:
+    #     print(f"Error saving orders: {e}")
+    
+    with open(filename, 'w') as file:
+        for order in order_list:
+            file.write(str(order) + "\n")
+
+
+def create_order():
+    customer_name = input("What is your name?")
+    pizza_type=input("Which pizza would you like?")
+    toppings=input("Please select toppings (comma-seperated)").split(",")
+            
+    return PizzaOrder(customer_name, pizza_type, toppings)
+    # print("\n--- Order Summary ---")
+    # print(f"Customer: {customer_name}")
+    # print(f"Pizza: {pizza_type}")
+    # print(f"Toppings: {toppings}")
+    # return cls(customer_name, pizza_type, toppings)
+# myorder = create_order()
+order1 = PizzaOrder('Miko', 'Diavola', ['Meatballs'])
+order2 = PizzaOrder('Angelique', 'Quatro Formaggi', ['Mushrooms'])
+order3 = PizzaOrder('Kazio', 'Cheese', ['Tuna', 'Mushrooms'])
+
+save_orders_to_file([order1, order2, order3])
 
 def load_orders_from_file():
     orders = []
@@ -73,13 +84,13 @@ def load_orders_from_file():
 
     return orders
 
-#Voorbeeld order laden
-# orders = load_orders_from_file()
-# print("Ingeladen orders:")
+# Voorbeeld order laden
+orders = load_orders_from_file()
+print("Ingeladen orders:")
 
-# for o in orders: 
-#     print(o)
-# print(orders)
+for order in orders: 
+    print(order)
+print(orders)
   
  
 #Voorbeeld order opslaan
