@@ -535,24 +535,19 @@ def calculate_profit(include_expired=False):
 
 #___ RAPPORTAGE ___
 
-from rich.table import Table
-from rich.console import Console
-
-def report_financials(period="total"):
+def calculate_financials(period="total"):
     today = parse_date(get_date())
 
     sold = read_sold_csv()
     bought = read_bought_csv()
     expired = read_expired_csv()
 
-    # Lookup tabel voor inkoopprijzen
     buy_lookup = {row["id"]: row["buy_price"] for row in bought}
 
     revenue = 0.0
     cogs = 0.0
     expired_cost = 0.0
 
-    # --- Revenue & COGS ---
     for item in sold:
         sell_date = parse_date(item["sell_date"])
         if period == "day" and not is_same_day(sell_date, today):
@@ -563,11 +558,8 @@ def report_financials(period="total"):
             continue
 
         revenue += float(item["sell_price"].replace(",", "."))
+        cogs += float(buy_lookup[item["bought_id"]].replace(",", "."))
 
-        bp = buy_lookup[item["bought_id"]].replace(",", ".")
-        cogs += float(bp)
-
-    # --- Verspilling ---
     for item in expired:
         exp_date = parse_date(item["expired_on"])
         if period == "day" and not is_same_day(exp_date, today):
@@ -582,7 +574,52 @@ def report_financials(period="total"):
     profit = revenue - cogs
     net_profit = profit - expired_cost
 
-    # --- Rich tabel ---
+    return {
+        "revenue": revenue,
+        "cogs": cogs,
+        "profit": profit,
+        "expired_cost": expired_cost,
+        "net_profit": net_profit
+    }
+
+
+def plot_financials(period="total"):
+    data = calculate_financials(period)
+
+    labels = ["Omzet", "COGS", "Brutowinst", "Verspilling", "Netto winst"]
+    values = [
+        data["revenue"],
+        data["cogs"],
+        data["profit"],
+        data["expired_cost"],
+        data["net_profit"]
+    ]
+
+    colors = ["green", "orange", "blue", "red", "purple"]
+
+    plt.figure(figsize=(10, 6))
+    plt.bar(labels, values, color=colors)
+
+    plt.title(f"Financieel overzicht ({period})")
+    plt.ylabel("Bedrag (€)")
+    plt.grid(axis="y", linestyle="--", alpha=0.5)
+    plt.tight_layout()
+    plt.show()
+
+
+
+from rich.table import Table
+from rich.console import Console
+
+def report_financials(period="total"):
+    data = calculate_financials(period)
+
+    revenue = data["revenue"]
+    cogs = data["cogs"]
+    profit = data["profit"]
+    expired_cost = data["expired_cost"]
+    net_profit = data["net_profit"]
+
     console = Console()
     table = Table(title=f"Financieel rapport ({period})", show_lines=True)
 
@@ -592,7 +629,6 @@ def report_financials(period="total"):
     table.add_row("Omzet (Revenue)", f"{revenue:.2f}")
     table.add_row("Inkoopkosten (COGS)", f"{cogs:.2f}")
     table.add_row("Brutowinst", f"{profit:.2f}")
-
     table.add_row("Verspilling", f"[red]{expired_cost:.2f}[/red]")
 
     if net_profit >= 0:
@@ -602,3 +638,5 @@ def report_financials(period="total"):
 
     console.print(table)
 
+    # --- Grafiek tonen ---
+    plot_financials(period)
